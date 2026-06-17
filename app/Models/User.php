@@ -1653,6 +1653,19 @@ class User extends Model implements AfterCommit, AuthenticatableContract, HasLoc
         return $this->hasMany(KudosuHistory::class, 'receiver_id');
     }
 
+    public function kudosuRank()
+    {
+        if ($this->osu_kudostotal === 0) {
+            return null;
+        }
+
+        return $this->memoize(__FUNCTION__, function () {
+            return static::default()
+                ->where('osu_kudostotal', '>', $this->osu_kudostotal)
+                ->count() + 1;
+        });
+    }
+
     public function supporterTags()
     {
         return $this->hasMany(UserDonation::class, 'target_user_id');

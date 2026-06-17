@@ -361,6 +361,7 @@ class UserCompactTransformer extends TransformerAbstract
     {
         return $this->primitive([
             'available' => $user->osu_kudosavailable,
+            'rank' => $user->kudosuRank(),
             'total' => $user->osu_kudostotal,
         ]);
     }
