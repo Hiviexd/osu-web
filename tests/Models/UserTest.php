@@ -269,4 +269,23 @@ class UserTest extends TestCase
             $this->assertArrayHasKey('user_discord', $user->validationErrors()->all());
         }
     }
+
+    public function testKudosuRankReturnsNullForZeroTotal()
+    {
+        $user = User::factory()->create(['osu_kudostotal' => 0]);
+
+        $this->assertNull($user->kudosuRank());
+    }
+
+    public function testKudosuRank()
+    {
+        $topUser = User::factory()->create(['osu_kudostotal' => 100]);
+        $middleUser = User::factory()->create(['osu_kudostotal' => 50]);
+        $tiedUser = User::factory()->create(['osu_kudostotal' => 50]);
+        User::factory()->create(['osu_kudostotal' => 10]);
+
+        $this->assertSame(1, $topUser->fresh()->kudosuRank());
+        $this->assertSame(2, $middleUser->fresh()->kudosuRank());
+        $this->assertSame(2, $tiedUser->fresh()->kudosuRank());
+    }
 }
