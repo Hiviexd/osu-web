@@ -506,6 +506,7 @@ return [
             'global' => 'Global rank for :mode',
             'global_simple' => 'Global Ranking',
             'highest' => 'Highest rank: :rank on :date',
+            'kudosu_simple' => 'Kudosu Ranking',
         ],
         'season_stats' => [
             'division_top_percentage' => 'Top :value',

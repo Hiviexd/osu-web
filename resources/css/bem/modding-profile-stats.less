@@ -1,0 +1,65 @@
+// Copyright (c) ppy Pty Ltd <contact@ppy.sh>. Licensed under the GNU Affero General Public License v3.0.
+// See the LICENCE file in the repository root for full licence text.
+
+.modding-profile-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 30px;
+    align-items: flex-start;
+  }
+
+  &__count {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: none;
+    width: auto;
+    margin: 0;
+
+    each({
+      ranked: var(--beatmapset-ranked-bg-hsl);
+      loved: var(--beatmapset-loved-bg-hsl);
+      guest: var(--beatmapset-qualified-bg-hsl);
+      pending: var(--beatmapset-pending-bg-hsl);
+      graveyard: var(--beatmapset-graveyard-bg-hsl);
+      nominated: var(--hsl-purple-1);
+    }, .(@value, @key) {
+      &--@{key} {
+        --line-colour: hsl(@value);
+      }
+    });
+  }
+
+  &__count-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: fit-content;
+  }
+
+  &__count-label {
+    font-weight: normal;
+    font-size: @font-size--normal;
+    white-space: nowrap;
+  }
+
+  &__count-line {
+    .default-border-radius();
+    width: 100%;
+    height: 2px;
+    background-color: var(--line-colour);
+  }
+
+  &__count-value {
+    font-size: @font-size--title-small-3;
+    font-weight: 300;
+    color: hsl(var(--hsl-c2));
+    white-space: nowrap;
+    margin: 0;
+  }
+}
