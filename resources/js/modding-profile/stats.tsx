@@ -14,9 +14,9 @@ const countRows = [
     'loved_beatmapset_count',
     'pending_beatmapset_count',
     'graveyard_beatmapset_count',
+    'guest_beatmapset_count',
   ],
   [
-    'guest_beatmapset_count',
     'nominated_beatmapset_count',
   ],
 ] as const;
@@ -58,15 +58,12 @@ export default class Stats extends React.PureComponent<Props> {
 
     return (
       <div key={key} className={classWithModifiers('modding-profile-stats__count', section)}>
-        <div className='modding-profile-stats__count-heading'>
-          <div className='modding-profile-stats__count-label'>
-            {trans(`users.show.extra.beatmaps.${section}.title`)}
-          </div>
-          <div className='modding-profile-stats__count-line' aria-hidden />
-        </div>
-        <div className='modding-profile-stats__count-value'>
-          {formatNumber(this.props.user[key])}
-        </div>
+        <div className='modding-profile-stats__count-line' aria-hidden />
+        <ValueDisplay
+          label={trans(`users.show.extra.beatmaps.${section}.title`)}
+          modifiers='rank'
+          value={formatNumber(this.props.user[key])}
+        />
       </div>
     );
   };

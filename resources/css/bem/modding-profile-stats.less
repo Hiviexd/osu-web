@@ -18,8 +18,7 @@
     flex-direction: column;
     gap: 4px;
     flex: none;
-    width: auto;
-    margin: 0;
+    width: fit-content;
 
     each({
       ranked: var(--beatmapset-ranked-bg-hsl);
@@ -33,19 +32,10 @@
         --line-colour: hsl(@value);
       }
     });
-  }
 
-  &__count-heading {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: fit-content;
-  }
-
-  &__count-label {
-    font-weight: normal;
-    font-size: @font-size--normal;
-    white-space: nowrap;
+    .value-display {
+      flex: none;
+    }
   }
 
   &__count-line {
@@ -53,13 +43,5 @@
     width: 100%;
     height: 2px;
     background-color: var(--line-colour);
-  }
-
-  &__count-value {
-    font-size: @font-size--title-small-3;
-    font-weight: 300;
-    color: hsl(var(--hsl-c2));
-    white-space: nowrap;
-    margin: 0;
   }
 }
