@@ -8,20 +8,16 @@ import { classWithModifiers } from 'utils/css';
 import { formatNumber } from 'utils/html';
 import { trans } from 'utils/lang';
 
-const countRows = [
-  [
-    'ranked_beatmapset_count',
-    'loved_beatmapset_count',
-    'pending_beatmapset_count',
-    'graveyard_beatmapset_count',
-    'guest_beatmapset_count',
-  ],
-  [
-    'nominated_beatmapset_count',
-  ],
+const countKeys = [
+  'ranked_beatmapset_count',
+  'loved_beatmapset_count',
+  'pending_beatmapset_count',
+  'graveyard_beatmapset_count',
+  'guest_beatmapset_count',
+  'nominated_beatmapset_count',
 ] as const;
 
-type BeatmapsetCountKey = typeof countRows[number][number];
+type BeatmapsetCountKey = typeof countKeys[number];
 
 interface Props {
   user: UserModdingProfileJson;
@@ -44,11 +40,9 @@ export default class Stats extends React.PureComponent<Props> {
             }
           />
         </div>
-        {countRows.map((row, index) => (
-          <div key={index} className='modding-profile-stats__row'>
-            {row.map(this.renderEntry)}
-          </div>
-        ))}
+        <div className='modding-profile-stats__row'>
+          {countKeys.map(this.renderEntry)}
+        </div>
       </div>
     );
   }
