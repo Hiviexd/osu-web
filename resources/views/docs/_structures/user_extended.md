@@ -20,8 +20,9 @@
   "interests": null,
   "join_date": "2010-01-01T00:00:00+00:00",
   "kudosu": {
-    "total": 20,
-    "available": 10
+    "available": 10,
+    "rank": 123,
+    "total": 20
   },
   "location": null,
   "max_blocks": 50,

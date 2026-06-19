@@ -83,10 +83,11 @@ user_preferences           | | |
 
 ### Kudosu
 
-Field     | Type
-----------|-----
-available | integer
-total     | integer
+Field     | Type     | Description
+----------|----------|------------
+available | integer  |
+rank      | integer? | Global kudosu rank. `null` if the user has no kudosu or is outside the top 1,000.
+total     | integer  |
 
 <div id="user-profilebanner" data-unique="user-profilebanner"></div>
 
