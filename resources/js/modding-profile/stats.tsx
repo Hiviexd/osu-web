@@ -34,7 +34,12 @@ export default class Stats extends React.PureComponent<Props> {
             label={trans('users.show.rank.kudosu_simple')}
             modifiers='rank'
             value={
-              <div className='rank-value rank-value--base'>
+              <div
+                className='rank-value rank-value--base'
+                data-html-title={rank == null ? trans('users.show.rank.kudosu_outside_top_1000') : undefined}
+                data-tooltip-position='bottom left'
+                title=''
+              >
                 {rank != null ? `#${formatNumber(rank)}` : '-'}
               </div>
             }

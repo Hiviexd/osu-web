@@ -506,6 +506,7 @@ return [
             'global' => 'Global rank for :mode',
             'global_simple' => 'Global Ranking',
             'highest' => 'Highest rank: :rank on :date',
+            'kudosu_outside_top_1000' => 'Rank is only shown after entering the top 1,000',
             'kudosu_simple' => 'Kudosu Ranking',
         ],
         'season_stats' => [
