@@ -5,6 +5,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\RankingController;
 use App\Exceptions\ChangeUsernameException;
 use App\Exceptions\InvariantException;
 use App\Exceptions\ModelNotSavedException;
@@ -1653,16 +1654,36 @@ class User extends Model implements AfterCommit, AuthenticatableContract, HasLoc
         return $this->hasMany(KudosuHistory::class, 'receiver_id');
     }
 
-    public function kudosuRank()
+    public static function kudosuRankThreshold(): ?int
+    {
+        $cacheDuration = 43200; // 12 hours
+
+        return Cache::remember('kudosu_rank_threshold:v1', $cacheDuration, function () {
+            return static::default()
+                ->where('osu_kudostotal', '>', 0)
+                ->orderByDesc('osu_kudostotal')
+                ->offset(RankingController::KUDOSU_MAX_RESULTS - 1)
+                ->value('osu_kudostotal');
+        });
+    }
+
+    public function kudosuRank(): ?int
     {
         if ($this->osu_kudostotal === 0) {
             return null;
         }
 
         return $this->memoize(__FUNCTION__, function () {
-            return static::default()
+            $threshold = static::kudosuRankThreshold();
+            if ($threshold !== null && $this->osu_kudostotal < $threshold) {
+                return null;
+            }
+
+            $rank = static::default()
                 ->where('osu_kudostotal', '>', $this->osu_kudostotal)
                 ->count() + 1;
+
+            return $rank <= RankingController::KUDOSU_MAX_RESULTS ? $rank : null;
         });
     }
 

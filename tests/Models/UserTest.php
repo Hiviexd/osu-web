@@ -8,9 +8,11 @@ declare(strict_types=1);
 namespace Tests\Models;
 
 use App\Libraries\Session\Store;
+use App\Http\Controllers\RankingController;
 use App\Models\OAuth\Token;
 use App\Models\User;
 use App\Models\UsernameChangeHistory;
+use Cache;
 use Carbon\CarbonImmutable;
 use Database\Factories\OAuth\RefreshTokenFactory;
 use Tests\TestCase;
@@ -272,17 +274,36 @@ class UserTest extends TestCase
 
     public function testKudosuRankReturnsNullForZeroTotal()
     {
+        Cache::forget('kudosu_rank_threshold:v1');
         $user = User::factory()->create(['osu_kudostotal' => 0]);
 
         $this->assertNull($user->kudosuRank());
     }
 
+    public function testKudosuRankReturnsNullBelowThreshold()
+    {
+        Cache::put('kudosu_rank_threshold:v1', 50, 60);
+        $user = User::factory()->create(['osu_kudostotal' => 10]);
+
+        $this->assertNull($user->kudosuRank());
+    }
+
+    public function testKudosuRankReturnsNullWhenRankAboveMax()
+    {
+        Cache::put('kudosu_rank_threshold:v1', 1, 60);
+        User::factory()->count(RankingController::KUDOSU_MAX_RESULTS)->create(['osu_kudostotal' => 100]);
+        $user = User::factory()->create(['osu_kudostotal' => 50]);
+
+        $this->assertNull($user->fresh()->kudosuRank());
+    }
+
     public function testKudosuRank()
     {
-        $topUser = User::factory()->create(['osu_kudostotal' => 100]);
-        $middleUser = User::factory()->create(['osu_kudostotal' => 50]);
-        $tiedUser = User::factory()->create(['osu_kudostotal' => 50]);
-        User::factory()->create(['osu_kudostotal' => 10]);
+        Cache::forget('kudosu_rank_threshold:v1');
+        $topUser = User::factory()->create(['osu_kudostotal' => 30_000]);
+        $middleUser = User::factory()->create(['osu_kudostotal' => 20_000]);
+        $tiedUser = User::factory()->create(['osu_kudostotal' => 20_000]);
+        User::factory()->create(['osu_kudostotal' => 10_000]);
 
         $this->assertSame(1, $topUser->fresh()->kudosuRank());
         $this->assertSame(2, $middleUser->fresh()->kudosuRank());
