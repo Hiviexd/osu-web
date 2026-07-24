@@ -416,13 +416,13 @@ return [
                 'not_ranked' => 'Only ranked beatmaps award pp',
                 'pp_weight' => 'weighted :percentage',
                 'view_details' => 'View Details',
-                'title' => 'Ranks',
+                'title' => 'Scores',
 
                 'best' => [
                     'title' => 'Best Performance',
                 ],
                 'first' => [
-                    'title' => 'First Place Ranks',
+                    'title' => 'First Place Scores',
                 ],
                 'pin' => [
                     'to_0' => 'Unpin',
@@ -508,6 +508,11 @@ return [
             'highest' => 'Highest rank: :rank on :date',
             'kudosu_outside_top_1000' => 'Rank is only shown after entering the top 1,000',
             'kudosu_simple' => 'Kudosu Ranking',
+        ],
+        'score_processing' => [
+            'title' => 'A new Star Rating / PP algorithm is :link.',
+            'title_link' => 'being deployed',
+            'message' => 'Recent scores may not be immediately reflected in user profiles.',
         ],
         'season_stats' => [
             'division_top_percentage' => 'Top :value',
