@@ -548,6 +548,20 @@ return [
             'total_hits' => 'Total Hits',
             'total_score' => 'Total Score',
             // modding stats
+            'activity_heatmap' => [
+                'help' => 'Updated every 6 hours',
+                'less' => 'Less',
+                'more' => 'More',
+                'nominations' => 'Nominations',
+                'posts' => 'Modding Activity',
+                'ranks' => 'Ranks',
+                'threshold' => [
+                    'bright' => ':min+',
+                    'dim' => ':min-:max',
+                    'empty' => '0',
+                ],
+                'title' => 'Activity Heatmap',
+            ],
             'beatmaps_modded_count' => 'Total Beatmaps Modded',
             'graveyard_beatmapset_count' => 'Graveyarded Beatmaps',
             'guest_beatmapset_count' => 'Guest Participation Beatmaps',

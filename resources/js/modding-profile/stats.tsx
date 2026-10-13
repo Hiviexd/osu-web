@@ -8,6 +8,7 @@ import * as React from 'react';
 import { classWithModifiers } from 'utils/css';
 import { formatNumber } from 'utils/html';
 import { trans } from 'utils/lang';
+import ActivityHeatmap from './activity-heatmap';
 
 const statusOrder = [
   'ranked',
@@ -146,6 +147,10 @@ export default function Stats({ user }: Props) {
             ))}
           </div>
         ))}
+      </div>
+
+      <div className='modding-profile-stats__heatmap'>
+        <ActivityHeatmap heatmap={user.modding_activity_heatmap} />
       </div>
     </div>
   );
