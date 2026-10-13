@@ -43,6 +43,14 @@
     gap: 10px;
   }
 
+  &__heatmap {
+    min-width: 0;
+
+    @media @desktop {
+      grid-column: 1 / -1;
+    }
+  }
+
   &__label {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
