@@ -165,9 +165,6 @@ class ModdingHistoryEventsBundle
                             'kudosu.rank',
                             'modding_activity_heatmap',
                             'nominated_beatmapset_count',
-                            'statistics',
-                            'statistics.country_rank',
-                            'statistics.rank',
                         ]
                     );
                 }
